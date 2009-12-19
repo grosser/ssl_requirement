@@ -49,6 +49,20 @@ than just the declarative specification. Say, only premium accounts get SSL.
 
 When including SslRequirement it adds `before_filter :ensure_proper_protocol`.
 
+### Separate ssl host?
+    class ApplicationController < ActionController::Base
+      include SslRequirement
+
+      def ssl_host
+        Rails.env.production ? 'myhost.com' : request.host
+      end
+    end
+
+### No ssl in development? (not recommended, [TATFT](http://dawanda.com/product/3861630-TATFT-Mousepad-Test-all-the-fucking-time))
+    class ApplicationController < ActionController::Base
+      include SslRequirement
+      skip_before_filter :ensure_proper_protocol unless Rails.env.production?
+    end
 
 Authors
 =======
