@@ -44,7 +44,7 @@ Example:
         # SSL access will be redirected to non-SSL
       end
     end
-  
+
 You can overwrite the protected method ssl_required? to rely on other things
 than just the declarative specification. Say, only premium accounts get SSL.
 
@@ -75,3 +75,4 @@ Copyright (c) 2005 David Heinemeier Hansson, released under the MIT license
  - [Michael Grosser](http://pragmatig.wordpress.com)
  - [Johndouthat](http://github.com/johndouthat)
  - [Adam Wiggins](http://adam.blog.heroku.com/)
+ - [Mark Rambow](https://github.com/markrambow)
