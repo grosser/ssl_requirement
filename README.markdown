@@ -9,7 +9,8 @@
  - ability to overwrite ssl_host, to make custom host changes e.g. `def ssl_host; request.sll? ? 'xxx.com' : 'yyy.com';end`
  - added except option to exclude actions
  - added rails3 compatibility
-` script/plugin install git://github.com/grosser/ssl_requirement.git `
+
+` script/plugin install git://github.com/dawanda/ssl_requirement.git `
 
 
 SSL Requirement
