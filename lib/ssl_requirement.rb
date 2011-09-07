@@ -72,7 +72,8 @@ module SslRequirement
     return if not must_turn_on and not must_turn_off
 
     protocol = (must_turn_on ? 'https' : 'http')
-    redirect_to "#{protocol}://#{ssl_host}#{request.request_uri}"
+    path = request.respond_to?(:fullpath) ? request.fullpath : request.request_uri
+    redirect_to "#{protocol}://#{ssl_host}#{path}"
     flash.keep
     return false
   end
