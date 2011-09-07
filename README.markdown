@@ -7,8 +7,10 @@
  - allow arrays of strings as attributes `ssl_required 'login', 'register'` / `ssl_required %w[login register]`
  - running tests
  - ability to overwrite ssl_host, to make custom host changes e.g. `def ssl_host; request.sll? ? 'xxx.com' : 'yyy.com';end`
+ - added except option to exclude actions
+ - added rails3 compatibility
 
-` script/plugin install git://github.com/grosser/ssl_requirement.git `
+` script/plugin install git://github.com/dawanda/ssl_requirement.git `
 
 
 SSL Requirement
