@@ -4,13 +4,22 @@
  - support :all
  - `ssl_required` == `ssl_required :all`
  - allow attributes as array `ssl_required [:login, :register]`
- - allow arrays of strings as attributes `ssl_required 'login', 'register'` / `ssl_required %w[login register]`
+ - allow strings as attributes `ssl_required 'login', 'register'` / `ssl_required %w[login register]`
  - running tests
  - ability to overwrite ssl_host, to make custom host changes e.g. `def ssl_host; request.sll? ? 'xxx.com' : 'yyy.com';end`
- - added except option to exclude actions
+ - added :except option to exclude actions
  - added rails3 compatibility
 
-` script/plugin install git://github.com/dawanda/ssl_requirement.git `
+Install
+=======
+### As Gem
+` gem install grosser-ssl_requirement `
+
+Add to Gemfile<br/>
+` gem 'grosser-ssl_requirement', :require => 'ssl_requirement' `
+
+### As plugin
+` rails plugin install git://github.com/grosser/ssl_requirement.git `
 
 
 SSL Requirement
