@@ -57,7 +57,12 @@ module SslRequirement
     return unless actions
     actions = [:all] if actions.empty?
     return true if actions.include? :all
-    actions.map(&:to_sym).include?(params[:action].to_sym)
+
+    if actions.first.is_a? Hash and actions.first[:except]
+      not actions.first[:except].map(&:to_sym).include?(params[:action].to_sym)
+    else
+      actions.map(&:to_sym).include?(params[:action].to_sym)
+    end
   end
 
   def ensure_proper_protocol

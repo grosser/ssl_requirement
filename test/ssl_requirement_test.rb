@@ -240,3 +240,38 @@ class SslHostTest < ActionController::TestCase
     assert_match %r{^https://www.xxx.com/}, @response.headers['Location']
   end
 end
+
+class SslAllowedWithExceptedMethods < ActionController::Base
+  include SslRequirement
+  ssl_allowed :except => [:non_secure_method]
+
+  def secure
+    render :nothing => true
+  end
+
+  def non_secure_method
+    render :nothing => true
+  end
+end
+
+class SslAllowedWithExceptedMethodsTest < ActionController::TestCase
+  def setup
+    @controller = SslAllowedWithExceptedMethods.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+  end
+
+  test "uses ssl" do
+    @request.env['HTTPS'] = "on"
+    get :secure
+    assert_response :success
+  end
+
+  test "diallowes with ssl on excluded methods" do
+    @request.env['HTTPS'] = "on"
+    get :non_secure_method
+    assert_response :redirect
+    assert_equal "http://test.host/ssl_allowed_with_excepted_methods/non_secure_method", @response.headers['Location']
+  end
+end
+
