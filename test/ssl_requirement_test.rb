@@ -46,26 +46,26 @@ require 'ssl_requirement'
 
 class SslRequirementController < ActionController::Base
   include SslRequirement
-  
+
   ssl_required :a, :b
   ssl_allowed :c
-  
+
   def a
     render :nothing => true
   end
-  
+
   def b
     render :nothing => true
   end
-  
+
   def c
     render :nothing => true
   end
-  
+
   def d
     render :nothing => true
   end
-  
+
   def set_flash
     flash[:foo] = "bar"
     render :nothing => true
@@ -78,8 +78,8 @@ class SslRequirementTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
-  
-  test "redirect to https preserves flash" do 
+
+  test "redirect to https preserves flash" do
     get :set_flash
     get :b
     assert_response :redirect
@@ -270,9 +270,10 @@ class SslHostTest < ActionController::TestCase
   end
 
   test "diallowes without ssl" do
+    @request.path = "/ssl_allowed_and_required/a"
     get :a
     assert_response :redirect
-    assert_match %r{^https://www.xxx.com/}, @response.headers['Location']
+    assert_equal "https://www.xxx.com/ssl_allowed_and_required/a", @response.headers['Location']
   end
 end
 
@@ -304,6 +305,7 @@ class SslAllowedWithExceptedMethodsTest < ActionController::TestCase
 
   test "diallowes with ssl on excluded methods" do
     @request.env['HTTPS'] = "on"
+    @request.path = "/ssl_allowed_with_excepted_methods/non_secure_method" #stubed path because testframework does not sets path on rails 3
     get :non_secure_method
     assert_response :redirect
     assert_equal "http://test.host/ssl_allowed_with_excepted_methods/non_secure_method", @response.headers['Location']
